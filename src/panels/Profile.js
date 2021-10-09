@@ -9,6 +9,8 @@ import {
   PanelHeader,
   Div,
   PullToRefresh,
+  Card,
+    Footer,
   SimpleCell,
   Header,
   Spinner,
@@ -18,6 +20,7 @@ import {
   Icon28Users3Outline,
   Icon28UserStarBadgeOutline,
   Icon28MessageAddBadgeOutline,
+  Icon28ShareOutline,
   Icon28UserOutgoingOutline,
   Icon28QuestionOutline,
   Icon28UserOutline,
@@ -108,37 +111,39 @@ export default function Profile() {
                     />
                   </Div>
                 )}
-              <RichCell
-                disabled
-                multiline
-                before={<Avatar size={56} src={storage.user.photo_100} />}
-                text={
-                  sessionStorage.getItem("platform") !== "mobile_iphone" &&
-                  sessionStorage.getItem("platform") !==
-                    "mobile_iphone_messenger" &&
-                  (data.pro === 1
-                    ? "Подписка: активирована"
-                    : "Подписка: отсутствует")
-                }
-                caption={
-                  localStorage.getItem("request") === true
-                    ? "Подана заявка на контент-мейкера"
-                    : data.status === 1
-                    ? "Контент-мейкер"
-                    : data.status === 0
-                    ? "Обычный пользователь"
-                    : (data.status === 2 ||
-                        localStorage.getItem("request") === false) &&
-                      "Подана заявка на контент-мейкера"
-                }
-              >
+              <Card>
+                <RichCell
+                    disabled
+                    multiline
+                    before={<Avatar size={56} src={storage.user.photo_100} />}
+                    text={
+                      sessionStorage.getItem("platform") !== "mobile_iphone" &&
+                      sessionStorage.getItem("platform") !==
+                      "mobile_iphone_messenger" &&
+                      (data.pro === 1
+                          ? "Подписка: активирована"
+                          : "Подписка: отсутствует")
+                    }
+                    caption={
+                      localStorage.getItem("request") === true
+                          ? "Подана заявка на контент-мейкера"
+                          : data.status === 1
+                              ? "Контент-мейкер"
+                              : data.status === 0
+                                  ? "Обычный пользователь"
+                                  : (data.status === 2 ||
+                                      localStorage.getItem("request") === false) &&
+                                  "Подана заявка на контент-мейкера"
+                    }
+                >
                 <span
-                  dangerouslySetInnerHTML={{ __html: storage.user.first_name }}
+                    dangerouslySetInnerHTML={{ __html: storage.user.first_name }}
                 />{" "}
-                <span
-                  dangerouslySetInnerHTML={{ __html: storage.user.last_name }}
-                />
-              </RichCell>
+                  <span
+                      dangerouslySetInnerHTML={{ __html: storage.user.last_name }}
+                  />
+                </RichCell>
+              </Card>
               {data.status === 1 && (
                 <Fragment>
                   <Header mode="secondary">Функции контент-мейкера</Header>
@@ -173,94 +178,106 @@ export default function Profile() {
                 </Fragment>
               )}
               <Header mode="secondary">Различные функции</Header>
-              {Number(sessionStorage.getItem("favorites")) === 0 && (
+              <Card>
+                {Number(sessionStorage.getItem("favorites")) === 0 && (
+                    <SimpleCell
+                        onClick={() =>
+                            bridge.send("VKWebAppAddToFavorites").then((data) => {
+                              if (data.result === true) {
+                                sessionStorage.setItem("favorites", "1");
+                                dispatch(
+                                    setSnackbar({
+                                      text: "Сервис добавлен в «Избранное»!",
+                                      success: true,
+                                    })
+                                );
+                              }
+                            })
+                        }
+                        expandable
+                        before={<Icon28FavoriteOutline />}
+                    >
+                      Добавить в избранное
+                    </SimpleCell>
+                )}
                 <SimpleCell
-                  onClick={() =>
-                    bridge.send("VKWebAppAddToFavorites").then((data) => {
-                      if (data.result === true) {
-                        sessionStorage.setItem("favorites", "1");
-                        dispatch(
-                          setSnackbar({
-                            text: "Сервис добавлен в «Избранное»!",
-                            success: true,
-                          })
-                        );
-                      }
-                    })
-                  }
-                  expandable
-                  before={<Icon28FavoriteOutline />}
-                >
-                  Добавить в избранное
-                </SimpleCell>
-              )}
-              <SimpleCell
-                onClick={() =>
-                  bridge.send("VKWebAppAddToCommunity").then((data) => {
-                    if (data.group_id !== undefined && data.group_id !== null) {
-                      dispatch(
-                        setSnackbar({
-                          text: "Сервис добавлен в сообщество!",
-                          success: true,
+                    onClick={() =>
+                        bridge.send("VKWebAppAddToCommunity").then((data) => {
+                          if (data.group_id !== undefined && data.group_id !== null) {
+                            dispatch(
+                                setSnackbar({
+                                  text: "Сервис добавлен в сообщество!",
+                                  success: true,
+                                })
+                            );
+                          }
                         })
-                      );
                     }
-                  })
-                }
-                expandable
-                before={<Icon28Users3Outline />}
-              >
-                Установить сервис в группу
-              </SimpleCell>
-              {data.status === 0 && localStorage.getItem("request") === null && (
-                <SimpleCell
-                  expandable
-                  before={<Icon28UserStarBadgeOutline />}
-                  onClick={() =>
-                    dispatch(setActiveModal("contentMakerRequest"))
-                  }
+                    expandable
+                    before={<Icon28Users3Outline />}
                 >
-                  Стать контент-мейкером
+                  Установить сервис в группу
                 </SimpleCell>
-              )}
-              <SimpleCell
-                onClick={() => dispatch(setActiveModal("tour1"))}
-                expandable
-                before={<Icon28LightbulbOutline />}
-              >
-                Пройти гайд
-              </SimpleCell>
+                {data.status === 0 && localStorage.getItem("request") === null && (
+                    <SimpleCell
+                        expandable
+                        before={<Icon28UserStarBadgeOutline />}
+                        onClick={() =>
+                            dispatch(setActiveModal("contentMakerRequest"))
+                        }
+                    >
+                      Стать контент-мейкером
+                    </SimpleCell>
+                )}
+                <SimpleCell
+                    onClick={() => dispatch(setActiveModal("tour1"))}
+                    expandable
+                    before={<Icon28LightbulbOutline />}
+                >
+                  Пройти гайд
+                </SimpleCell>
+                <SimpleCell
+                    onClick={() => bridge.send("VKWebAppShare", {"link": "https://vk.com/app7915893"})}
+                    expandable
+                    before={<Icon28ShareOutline />}
+                >
+                  Поделиться сервисом
+                </SimpleCell>
+              </Card>
               <Header mode="secondary">Другое</Header>
-              <a
-                href="https://vk.com/@notificationsapp-start-guide"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <SimpleCell expandable before={<Icon28QuestionOutline />}>
-                  Открыть FAQ
-                </SimpleCell>
-              </a>
-              <a
-                href="https://vk.com/club206215182"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <SimpleCell expandable before={<Icon28UserOutgoingOutline />}>
-                  Перейти в сообщество
-                </SimpleCell>
-              </a>
-              <a
-                href="https://vk.com/id172118960"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <SimpleCell
-                  expandable
-                  before={<Icon28MessageAddBadgeOutline />}
+              <Card>
+                <a
+                    href="https://vk.com/@notificationsapp-start-guide"
+                    target="_blank"
+                    rel="noreferrer"
                 >
-                  Связь с разработчиком
-                </SimpleCell>
-              </a>
+                  <SimpleCell expandable before={<Icon28QuestionOutline />}>
+                    Открыть FAQ
+                  </SimpleCell>
+                </a>
+                <a
+                    href="https://vk.com/club206215182"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                  <SimpleCell expandable before={<Icon28UserOutgoingOutline />}>
+                    Перейти в сообщество
+                  </SimpleCell>
+                </a>
+                <a
+                    href="https://vk.com/id172118960"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                  <SimpleCell
+                      expandable
+                      before={<Icon28MessageAddBadgeOutline />}
+                  >
+                    Разработчик
+                  </SimpleCell>
+                </a>
+              </Card>
+              <Footer>Версия приложения: 1.3.0</Footer>
             </Fragment>
           ) : (
             loader && <Spinner size="medium" />
