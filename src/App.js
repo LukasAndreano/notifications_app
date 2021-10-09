@@ -87,7 +87,7 @@ const App = withAdaptivity(
     }, [dispatch]);
 
     useEffect(() => {
-      bridge.subscribe(({ detail: { type, data } }) => {
+      bridge.subscribe(({ detail: { type} }) => {
         setIgnore(true);
         switch (type) {
           case "VKWebAppAllowNotificationsResult":
@@ -299,8 +299,7 @@ const App = withAdaptivity(
       } else if (storage.activeModal !== null) {
         dispatch(setActiveModal(null));
       } else if (
-        window.location.hash.substr(1) !== (null || "") &&
-        window.location.hash.substr(1) !== "popout" &&
+        window.location.hash.substr(1) !== "" && window.location.hash.substr(1) !== "popout" &&
         window.location.hash.substr(1) !== storage.tag
       ) {
         dispatch(setDontClone(true));

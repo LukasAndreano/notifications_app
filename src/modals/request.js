@@ -54,7 +54,7 @@ export default function Request(props) {
             ).then((data) => {
               setDisabled(false);
               if (data.response) {
-                localStorage.setItem("request", true);
+                localStorage.setItem("request", "true");
                 setTimeout(
                   () =>
                     dispatch(
@@ -95,7 +95,7 @@ export default function Request(props) {
             onChange={(e) => {
               setName(
                 e.target.value
-                  .replace(/[0-9A-Za-z^!@#$%^&*()_|/№:?;"'.,<>=-~]/gi, "")
+                  .replace(/[0-9A-Za-z^!@#$%&*()_|/№:?;"'.,<>=-~]/gi, "")
                   .trim()
               );
             }}

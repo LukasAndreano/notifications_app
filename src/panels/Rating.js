@@ -34,7 +34,7 @@ export default function Feed() {
   const [youtube, setYoutube] = useState([]);
   const [updated, setUpdated] = useState(false);
   const [loader, setLoader] = useState(
-    localStorage.getItem("rating") !== null ? false : true
+    localStorage.getItem("rating") === null
   );
   const [twitch, setTwitch] = useState([]);
   const [goodgame, setGoodGame] = useState([]);
@@ -228,7 +228,7 @@ export default function Feed() {
 
   return (
     <Fragment>
-      <PanelHeader separator={storage.isDesktop ? true : false}>
+      <PanelHeader separator={storage.isDesktop}>
         Популярные
       </PanelHeader>
       <PullToRefresh

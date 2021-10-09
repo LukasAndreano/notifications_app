@@ -90,7 +90,7 @@ export default function Settings() {
     <Fragment>
       <PanelHeader
         left={<PanelHeaderBack onClick={() => history.goBack()} />}
-        separator={storage.isDesktop ? true : false}
+        separator={storage.isDesktop}
       >
         {storage.isDesktop ? "Настройки уведомлений" : "Настройки"}
       </PanelHeader>

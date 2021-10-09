@@ -29,11 +29,11 @@ import {
 import { setActiveModal, setSnackbar, saveTag } from "../reducers/mainReducer";
 import api from "../service/improvedFetch";
 
-export default function Profile(props) {
+export default function Profile() {
   const [loaded, setLoaded] = useState(false);
   const [data, setData] = useState({ pro: 0, status: 0 });
   const [loader, setLoader] = useState(
-    localStorage.getItem("profile") !== null ? false : true
+    localStorage.getItem("profile") === null
   );
 
   const [fetching, setFetching] = useState(false);
@@ -87,7 +87,7 @@ export default function Profile(props) {
 
   return (
     <Fragment>
-      <PanelHeader separator={storage.isDesktop ? true : false}>
+      <PanelHeader separator={storage.isDesktop}>
         Профиль
       </PanelHeader>
       <PullToRefresh onRefresh={() => fetchingFunc(true)} isFetching={fetching}>
@@ -178,7 +178,7 @@ export default function Profile(props) {
                   onClick={() =>
                     bridge.send("VKWebAppAddToFavorites").then((data) => {
                       if (data.result === true) {
-                        sessionStorage.setItem("favorites", 1);
+                        sessionStorage.setItem("favorites", "1");
                         dispatch(
                           setSnackbar({
                             text: "Сервис добавлен в «Избранное»!",

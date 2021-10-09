@@ -27,7 +27,7 @@ export default function Subscriptions() {
   const [loaded, setLoaded] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [loader, setLoader] = useState(
-    localStorage.getItem("subscriptions") !== null ? false : true
+    localStorage.getItem("subscriptions") === null
   );
 
   const history = useHistory();
@@ -64,7 +64,7 @@ export default function Subscriptions() {
       });
       setNotifications(arr);
       if (arr.length !== 0 && storage.tour === 2) {
-        setTimeout(() => dispatch(setActiveModal("tour3"), 1000));
+        setTimeout(() => dispatch(setActiveModal("tour3")), 1000);
       }
       if (instantLoad) setLoaded(true);
       else setTimeout(() => setLoaded(true), 100);
@@ -124,7 +124,7 @@ export default function Subscriptions() {
 
   return (
     <Fragment>
-      <PanelHeader separator={storage.isDesktop ? true : false}>
+      <PanelHeader separator={storage.isDesktop}>
         {storage.isDesktop ? "Ваши подписки" : "Подписки"}
       </PanelHeader>
       <Group>
