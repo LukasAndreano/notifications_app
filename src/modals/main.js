@@ -49,6 +49,7 @@ import SetLink from "./setlink";
 import OWArcade from "./owarcade";
 import KITEK from "./kitek";
 import Steam from "./steam";
+import NotificationsSettings from "./notificationsSettings";
 
 export default function Modals() {
   const [blockBackButton, setBlockBackButton] = useState(false);
@@ -136,6 +137,32 @@ export default function Modals() {
       >
         <ContentMakerServices closeModal={closeModal} />
       </ModalPage>
+
+        <ModalPage
+            id="notificationsSettings"
+            onClose={() => {
+                closeModal();
+            }}
+            settlingHeight={100}
+            header={
+                <ModalPageHeader
+                    right={
+                        storage.isDesktop ? (
+                            ""
+                        ) : (
+                            <PanelHeaderButton onClick={() => closeModal()}>
+                                <Icon24Dismiss />
+                            </PanelHeaderButton>
+                        )
+                    }
+                    separator={false}
+                >
+                    Уведомления
+                </ModalPageHeader>
+            }
+        >
+            <NotificationsSettings closeModal={closeModal} />
+        </ModalPage>
 
       <ModalCard
         id="wallEvent"

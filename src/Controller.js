@@ -8,7 +8,6 @@ import Feed from "./panels/Feed";
 import Services from "./panels/Services";
 import Subscriptions from "./panels/Subscriptions";
 import Rating from "./panels/Rating";
-import Settings from "./panels/Settings";
 
 const routes = [
   {
@@ -30,11 +29,6 @@ const routes = [
     path: "/rating",
     exact: true,
     panel: () => <Rating />,
-  },
-  {
-    path: "/subscriptions/settings",
-    exact: true,
-    panel: () => <Settings />,
   },
   {
     path: "/",

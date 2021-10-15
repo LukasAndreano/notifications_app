@@ -343,6 +343,7 @@ const App = withAdaptivity(
     return (
       <Fragment>
         <SplitLayout
+            className={storage.snackbar.text !== null && 'snackbarActive'}
           header={hasHeader && <PanelHeader separator={false} />}
           style={{ justifyContent: "center" }}
         >
@@ -457,7 +458,7 @@ const App = withAdaptivity(
                   </Cell>
                 </Group>
                 <Footer style={{ marginTop: -10 }}>
-                  Версия приложения: 1.1.2 <br />
+                  Версия приложения: 1.2.0 <br />
                   Разработчик:{" "}
                   <a
                     href="https://vk.com/id172118960"
@@ -484,6 +485,7 @@ const App = withAdaptivity(
                   <Tabbar>
                     <TabbarItem
                       onClick={URLChanger}
+                      className={storage.tour === 4 && 'badgehightlighted'}
                       disabled={
                         !storage.navigation ||
                         storage.url === "" ||
@@ -493,9 +495,6 @@ const App = withAdaptivity(
                         storage.url === "" || storage.url === "index.html"
                       }
                       data-story=""
-                      indicator={
-                        storage.tour === 4 && <Badge mode="prominent" />
-                      }
                     >
                         <motion.div
                             initial={{ scale: 0 }}
@@ -518,11 +517,7 @@ const App = withAdaptivity(
                       }
                       selected={storage.url === "subscriptions"}
                       data-story="subscriptions"
-                      indicator={
-                        (storage.tour === 3 || storage.tour === 2) && (
-                          <Badge mode="prominent" />
-                        )
-                      }
+                      className={(storage.tour === 3 || storage.tour === 2) && 'badgehightlighted'}
                     >
                         <motion.div
                             initial={{ scale: 0 }}
@@ -543,9 +538,7 @@ const App = withAdaptivity(
                       }
                       selected={storage.url === "services"}
                       data-story="services"
-                      indicator={
-                        storage.tour === 1 && <Badge mode="prominent" />
-                      }
+                      className={storage.tour === 1 && 'badgehightlighted'}
                     >
                         <motion.div
                             initial={{ scale: 0 }}
@@ -566,9 +559,7 @@ const App = withAdaptivity(
                       disabled={!storage.navigation || storage.url === "rating"}
                       selected={storage.url === "rating"}
                       data-story="rating"
-                      indicator={
-                        storage.tour === 5 && <Badge mode="prominent" />
-                      }
+                      className={storage.tour === 5 && 'badgehightlighted'}
                     >
                         <motion.div
                             initial={{ scale: 0 }}
@@ -591,9 +582,7 @@ const App = withAdaptivity(
                       }
                       selected={storage.url === "profile"}
                       data-story="profile"
-                      indicator={
-                        storage.tour === 6 && <Badge mode="prominent" />
-                      }
+                      className={storage.tour === 6 && 'badgehightlighted'}
                     >
                         <motion.div
                             initial={{ scale: 0 }}

@@ -15,13 +15,10 @@ import api from "../service/improvedFetch";
 import {
   setActiveModal,
   saveModalData,
-  setUpdateURL,
   updateNotifications,
   setTime,
 } from "../reducers/mainReducer";
 import { useDispatch, useSelector } from "react-redux";
-
-import { useHistory } from "react-router-dom";
 
 export default function Subscriptions() {
   const [loaded, setLoaded] = useState(false);
@@ -29,8 +26,6 @@ export default function Subscriptions() {
   const [loader, setLoader] = useState(
     localStorage.getItem("subscriptions") === null
   );
-
-  const history = useHistory();
 
   const dispatch = useDispatch();
   const storage = useSelector((state) => state.main);
@@ -143,12 +138,7 @@ export default function Subscriptions() {
                           <Button
                             size="m"
                             onClick={() => {
-                              history.push("/subscriptions/settings");
-                              dispatch(setUpdateURL(true));
-                              setTimeout(
-                                () => dispatch(setUpdateURL(false)),
-                                100
-                              );
+                                dispatch(setActiveModal('notificationsSettings'))
                             }}
                           >
                             Перейти в настройки
@@ -179,9 +169,7 @@ export default function Subscriptions() {
                       size="m"
                       style={{ marginTop: 10 }}
                       onClick={() => {
-                        history.push("/subscriptions/settings");
-                        dispatch(setUpdateURL(true));
-                        setTimeout(() => dispatch(setUpdateURL(false)), 100);
+                          dispatch(setActiveModal('notificationsSettings'))
                       }}
                     >
                       Настройки уведомлений

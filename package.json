@@ -6,7 +6,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "@vkontakte/icons": "^1.128.1",
     "@vkontakte/vk-bridge": "^2.4.8",
-    "@vkontakte/vkui": "^4.17.0",
+    "@vkontakte/vkui": "^4.18.0",
     "framer-motion": "^4.1.17",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
@@ -41,6 +41,9 @@
     ]
   },
   "devDependencies": {
+    "eruda": "^2.4.1",
+    "eruda-code": "^2.0.0",
+    "eruda-dom": "^2.0.0",
     "prettier": "^2.3.2"
   }
 }

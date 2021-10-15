@@ -96,7 +96,7 @@ export default function Profile() {
       <PullToRefresh onRefresh={() => fetchingFunc(true)} isFetching={fetching}>
         <Group style={{ paddingLeft: 5, paddingRight: 5 }}>
           {loaded ? (
-            <Fragment>
+            <Div style={{marginTop: -10, marginBottom: -10}}>
               {sessionStorage.getItem("platform") !== "mobile_iphone" &&
                 sessionStorage.getItem("platform") !==
                   "mobile_iphone_messenger" &&
@@ -147,34 +147,36 @@ export default function Profile() {
               {data.status === 1 && (
                 <Fragment>
                   <Header mode="secondary">Функции контент-мейкера</Header>
-                  <SimpleCell
-                    onClick={() => {
-                      if (localStorage.getItem("link") === null) {
-                        dispatch(setActiveModal("setLink"));
-                      } else {
-                        dispatch(setActiveModal("refLink"));
-                        dispatch(saveTag(localStorage.getItem("link")));
-                      }
-                    }}
-                    expandable
-                    before={<Icon28ChainOutline />}
-                  >
-                    Ссылка на подписку
-                  </SimpleCell>
-                  <SimpleCell
-                    onClick={() => dispatch(setActiveModal("startMailing"))}
-                    expandable
-                    before={<Icon28MailOutline />}
-                  >
-                    Рассылка для подписчиков
-                  </SimpleCell>
-                  <SimpleCell
-                    onClick={() => dispatch(setActiveModal("randomSubscriber"))}
-                    expandable
-                    before={<Icon28UserOutline />}
-                  >
-                    Случайный подписчик
-                  </SimpleCell>
+                  <Card>
+                    <SimpleCell
+                        onClick={() => {
+                          if (localStorage.getItem("link") === null) {
+                            dispatch(setActiveModal("setLink"));
+                          } else {
+                            dispatch(setActiveModal("refLink"));
+                            dispatch(saveTag(localStorage.getItem("link")));
+                          }
+                        }}
+                        expandable
+                        before={<Icon28ChainOutline />}
+                    >
+                      Ссылка на подписку
+                    </SimpleCell>
+                    <SimpleCell
+                        onClick={() => dispatch(setActiveModal("startMailing"))}
+                        expandable
+                        before={<Icon28MailOutline />}
+                    >
+                      Рассылка для подписчиков
+                    </SimpleCell>
+                    <SimpleCell
+                        onClick={() => dispatch(setActiveModal("randomSubscriber"))}
+                        expandable
+                        before={<Icon28UserOutline />}
+                    >
+                      Случайный подписчик
+                    </SimpleCell>
+                  </Card>
                 </Fragment>
               )}
               <Header mode="secondary">Различные функции</Header>
@@ -200,24 +202,6 @@ export default function Profile() {
                       Добавить в избранное
                     </SimpleCell>
                 )}
-                <SimpleCell
-                    onClick={() =>
-                        bridge.send("VKWebAppAddToCommunity").then((data) => {
-                          if (data.group_id !== undefined && data.group_id !== null) {
-                            dispatch(
-                                setSnackbar({
-                                  text: "Сервис добавлен в сообщество!",
-                                  success: true,
-                                })
-                            );
-                          }
-                        })
-                    }
-                    expandable
-                    before={<Icon28Users3Outline />}
-                >
-                  Установить сервис в группу
-                </SimpleCell>
                 {data.status === 0 && localStorage.getItem("request") === null && (
                     <SimpleCell
                         expandable
@@ -235,13 +219,6 @@ export default function Profile() {
                     before={<Icon28LightbulbOutline />}
                 >
                   Пройти гайд
-                </SimpleCell>
-                <SimpleCell
-                    onClick={() => bridge.send("VKWebAppShare", {"link": "https://vk.com/app7915893"})}
-                    expandable
-                    before={<Icon28ShareOutline />}
-                >
-                  Поделиться сервисом
                 </SimpleCell>
               </Card>
               <Header mode="secondary">Другое</Header>
@@ -276,9 +253,34 @@ export default function Profile() {
                     Разработчик
                   </SimpleCell>
                 </a>
+                <SimpleCell
+                    onClick={() =>
+                        bridge.send("VKWebAppAddToCommunity").then((data) => {
+                          if (data.group_id !== undefined && data.group_id !== null) {
+                            dispatch(
+                                setSnackbar({
+                                  text: "Сервис добавлен в сообщество!",
+                                  success: true,
+                                })
+                            );
+                          }
+                        })
+                    }
+                    expandable
+                    before={<Icon28Users3Outline />}
+                >
+                  Установить сервис в группу
+                </SimpleCell>
+                <SimpleCell
+                    onClick={() => bridge.send("VKWebAppShare", {"link": "https://vk.com/app7915893"})}
+                    expandable
+                    before={<Icon28ShareOutline />}
+                >
+                  Поделиться сервисом
+                </SimpleCell>
               </Card>
-              <Footer>Версия приложения: 1.3.0</Footer>
-            </Fragment>
+              <Footer>Версия приложения: 1.2.0</Footer>
+            </Div>
           ) : (
             loader && <Spinner size="medium" />
           )}
