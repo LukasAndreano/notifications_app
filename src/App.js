@@ -26,7 +26,7 @@ import { motion } from "framer-motion";
 
 import {
   Icon28UserCircleOutline,
-  Icon28NewsfeedOutline,
+  Icon28Newsfeed,
   Icon28RssFeedOutline,
   Icon16Cancel,
   Icon16Done,
@@ -58,7 +58,6 @@ import Modals from "./modals/main";
 // VK STORAGE KEYS
 const STORAGE_KEYS = {
   STATUS: "status",
-  ONBOARDING: "onboarding",
 };
 
 const App = withAdaptivity(
@@ -87,7 +86,7 @@ const App = withAdaptivity(
     }, [dispatch]);
 
     useEffect(() => {
-      bridge.subscribe(({ detail: { type, data } }) => {
+      bridge.subscribe(({ detail: { type } }) => {
         setIgnore(true);
         switch (type) {
           case "VKWebAppAllowNotificationsResult":
@@ -183,7 +182,7 @@ const App = withAdaptivity(
           <Snackbar
             layout="vertical"
             duration={4000}
-            className={isDesktop ? "snackBar-fix" : ""}
+            className={isDesktop ? "snackBar-fix" : "snackbar-mobile-fix"}
             onClose={() => {
               dispatch(setSnackbar({ text: null }));
               setSnackbarFunc(null);
@@ -199,7 +198,7 @@ const App = withAdaptivity(
                   damping: 20,
                 }}
               >
-                <Avatar size={24} style={{ background: "var(--accent)" }}>
+                <Avatar size={24} style={{ background: "#EB876F" }}>
                   {storage.snackbar.success ? (
                     <Icon16Done fill="#fff" width={14} height={14} />
                   ) : (
@@ -299,7 +298,7 @@ const App = withAdaptivity(
       } else if (storage.activeModal !== null) {
         dispatch(setActiveModal(null));
       } else if (
-        window.location.hash.substr(1) !== (null || "") &&
+        window.location.hash.substr(1) !== "" &&
         window.location.hash.substr(1) !== "popout" &&
         window.location.hash.substr(1) !== storage.tag
       ) {
@@ -344,6 +343,7 @@ const App = withAdaptivity(
     return (
       <Fragment>
         <SplitLayout
+          className={storage.snackbar.text !== null && "snackbarActive"}
           header={hasHeader && <PanelHeader separator={false} />}
           style={{ justifyContent: "center" }}
         >
@@ -389,7 +389,7 @@ const App = withAdaptivity(
                       storage.url === "index.html" ||
                       !storage.navigation
                     }
-                    before={<Icon28NewsfeedOutline />}
+                    before={<Icon28Newsfeed />}
                     indicator={storage.tour === 4 && <Badge mode="prominent" />}
                   >
                     Лента уведомлений
@@ -458,7 +458,7 @@ const App = withAdaptivity(
                   </Cell>
                 </Group>
                 <Footer style={{ marginTop: -10 }}>
-                  Версия приложения: 1.1.2 <br />
+                  Версия приложения: 1.2.0 <br />
                   Разработчик:{" "}
                   <a
                     href="https://vk.com/id172118960"
@@ -485,6 +485,7 @@ const App = withAdaptivity(
                   <Tabbar>
                     <TabbarItem
                       onClick={URLChanger}
+                      className={storage.tour === 4 && "badgehightlighted"}
                       disabled={
                         !storage.navigation ||
                         storage.url === "" ||
@@ -494,14 +495,21 @@ const App = withAdaptivity(
                         storage.url === "" || storage.url === "index.html"
                       }
                       data-story=""
-                      text="Лента"
-                      indicator={
-                        storage.tour === 4 && <Badge mode="prominent" />
-                      }
                     >
-                      <Icon28NewsfeedOutline
-                        className={!storage.navigation && "disabledNav"}
-                      />
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.3,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28Newsfeed
+                          className={!storage.navigation && "disabledNav"}
+                        />
+                      </motion.div>
                     </TabbarItem>
 
                     <TabbarItem
@@ -511,14 +519,23 @@ const App = withAdaptivity(
                       }
                       selected={storage.url === "subscriptions"}
                       data-story="subscriptions"
-                      text="Подписки"
-                      indicator={
-                        (storage.tour === 3 || storage.tour === 2) && (
-                          <Badge mode="prominent" />
-                        )
+                      className={
+                        (storage.tour === 3 || storage.tour === 2) &&
+                        "badgehightlighted"
                       }
                     >
-                      <Icon28RssFeedOutline />
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.4,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28RssFeedOutline />
+                      </motion.div>
                     </TabbarItem>
 
                     <TabbarItem
@@ -528,14 +545,22 @@ const App = withAdaptivity(
                       }
                       selected={storage.url === "services"}
                       data-story="services"
-                      text="Сервисы"
-                      indicator={
-                        storage.tour === 1 && <Badge mode="prominent" />
-                      }
+                      className={storage.tour === 1 && "badgehightlighted"}
                     >
-                      <Icon28ServicesOutline
-                        className={!storage.navigation && "disabledNav"}
-                      />
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.5,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28ServicesOutline
+                          className={!storage.navigation && "disabledNav"}
+                        />
+                      </motion.div>
                     </TabbarItem>
 
                     <TabbarItem
@@ -543,14 +568,22 @@ const App = withAdaptivity(
                       disabled={!storage.navigation || storage.url === "rating"}
                       selected={storage.url === "rating"}
                       data-story="rating"
-                      text="Популярные"
-                      indicator={
-                        storage.tour === 5 && <Badge mode="prominent" />
-                      }
+                      className={storage.tour === 5 && "badgehightlighted"}
                     >
-                      <Icon28FireOutline
-                        className={!storage.navigation && "disabledNav"}
-                      />
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.6,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28FireOutline
+                          className={!storage.navigation && "disabledNav"}
+                        />
+                      </motion.div>
                     </TabbarItem>
 
                     <TabbarItem
@@ -560,14 +593,22 @@ const App = withAdaptivity(
                       }
                       selected={storage.url === "profile"}
                       data-story="profile"
-                      text="Профиль"
-                      indicator={
-                        storage.tour === 6 && <Badge mode="prominent" />
-                      }
+                      className={storage.tour === 6 && "badgehightlighted"}
                     >
-                      <Icon28UserCircleOutline
-                        className={!storage.navigation && "disabledNav"}
-                      />
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.7,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28UserCircleOutline
+                          className={!storage.navigation && "disabledNav"}
+                        />
+                      </motion.div>
                     </TabbarItem>
                   </Tabbar>
                 )
@@ -581,10 +622,10 @@ const App = withAdaptivity(
               >
                 <Panel id="default">
                   <Controller />
-                  {snackbar}
                 </Panel>
               </View>
             </Epic>
+            {snackbar}
           </SplitCol>
         </SplitLayout>
       </Fragment>

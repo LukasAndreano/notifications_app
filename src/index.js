@@ -34,9 +34,9 @@ try {
     getParams.vk_platform !== undefined &&
     getParams.vk_is_favorite !== undefined
   ) {
-    sessionStorage.setItem("platform", getParams.vk_platform);
+    sessionStorage.setItem("platform", `${getParams.vk_platform}`);
     sessionStorage.setItem("params", window.location.search);
-    sessionStorage.setItem("favorites", getParams.vk_is_favorite);
+    sessionStorage.setItem("favorites", `${getParams.vk_is_favorite}`);
   }
 
   bridge.subscribe(({ detail: { type, data } }) => {
@@ -64,6 +64,9 @@ try {
         </Provider>,
         document.getElementById("root")
       );
+      if (process.env.NODE_ENV === "development") {
+        import("./eruda").then(({ default: eruda }) => {});
+      }
     } else {
       ReactDOM.render(
         <Provider store={store}>

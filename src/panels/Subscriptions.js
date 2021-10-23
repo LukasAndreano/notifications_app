@@ -15,22 +15,17 @@ import api from "../service/improvedFetch";
 import {
   setActiveModal,
   saveModalData,
-  setUpdateURL,
   updateNotifications,
   setTime,
 } from "../reducers/mainReducer";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useHistory } from "react-router-dom";
-
 export default function Subscriptions() {
   const [loaded, setLoaded] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [loader, setLoader] = useState(
-    localStorage.getItem("subscriptions") !== null ? false : true
+    localStorage.getItem("subscriptions") === null
   );
-
-  const history = useHistory();
 
   const dispatch = useDispatch();
   const storage = useSelector((state) => state.main);
@@ -64,7 +59,7 @@ export default function Subscriptions() {
       });
       setNotifications(arr);
       if (arr.length !== 0 && storage.tour === 2) {
-        setTimeout(() => dispatch(setActiveModal("tour3"), 1000));
+        setTimeout(() => dispatch(setActiveModal("tour3")), 1000);
       }
       if (instantLoad) setLoaded(true);
       else setTimeout(() => setLoaded(true), 100);
@@ -124,7 +119,7 @@ export default function Subscriptions() {
 
   return (
     <Fragment>
-      <PanelHeader separator={storage.isDesktop ? true : false}>
+      <PanelHeader separator={storage.isDesktop}>
         {storage.isDesktop ? "Ваши подписки" : "Подписки"}
       </PanelHeader>
       <Group>
@@ -143,12 +138,7 @@ export default function Subscriptions() {
                           <Button
                             size="m"
                             onClick={() => {
-                              history.push("/subscriptions/settings");
-                              dispatch(setUpdateURL(true));
-                              setTimeout(
-                                () => dispatch(setUpdateURL(false)),
-                                100
-                              );
+                              dispatch(setActiveModal("notificationsSettings"));
                             }}
                           >
                             Перейти в настройки
@@ -179,9 +169,7 @@ export default function Subscriptions() {
                       size="m"
                       style={{ marginTop: 10 }}
                       onClick={() => {
-                        history.push("/subscriptions/settings");
-                        dispatch(setUpdateURL(true));
-                        setTimeout(() => dispatch(setUpdateURL(false)), 100);
+                        dispatch(setActiveModal("notificationsSettings"));
                       }}
                     >
                       Настройки уведомлений

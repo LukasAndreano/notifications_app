@@ -77,7 +77,7 @@ export default function SetLink(props) {
             onChange={(e) => {
               setTag(
                 e.target.value
-                  .replace(/[@+#+*+?+&+%++]/gi, "")
+                  .replace(/[@+#*?&%]/gi, "")
                   .replace(/\n/, "")
                   .trim()
               );

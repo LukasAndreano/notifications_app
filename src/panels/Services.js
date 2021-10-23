@@ -17,7 +17,7 @@ export default function Services() {
   const [loaded, setLoaded] = useState(false);
   const [services, setServices] = useState([]);
   const [loader, setLoader] = useState(
-    localStorage.getItem("services") !== null ? false : true
+    localStorage.getItem("services") === null
   );
   const [updated, setUpdated] = useState(false);
 
@@ -76,7 +76,7 @@ export default function Services() {
 
   return (
     <Fragment>
-      <PanelHeader separator={storage.isDesktop ? true : false}>
+      <PanelHeader separator={storage.isDesktop}>
         {storage.isDesktop ? "Доступные сервисы" : "Сервисы"}
       </PanelHeader>
       <Group>

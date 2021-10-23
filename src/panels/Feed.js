@@ -103,7 +103,7 @@ export default function Feed() {
 
   return (
     <Fragment>
-      <PanelHeader separator={storage.isDesktop ? true : false}>
+      <PanelHeader separator={storage.isDesktop}>
         {storage.isDesktop ? "Лента уведомлений" : "Лента"}
       </PanelHeader>
       <PullToRefresh

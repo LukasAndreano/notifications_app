@@ -1,6 +1,6 @@
 export default async function fetch2(method, params = null) {
-  const data = await fetch(
-    "https://notifications.lukass.ru/v1/" +
+  return await fetch(
+    "https://notifications-prod-api.nbalin.dev/v1/" +
       method +
       sessionStorage.getItem("params"),
     {
@@ -13,5 +13,4 @@ export default async function fetch2(method, params = null) {
     .then((res) => {
       return res;
     });
-  return data;
 }
