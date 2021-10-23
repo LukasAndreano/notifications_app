@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../service/improvedFetch";
 import { motion } from "framer-motion";
 
-export default function GoPaladins(props) {
+export default function KITEK(props) {
   const dispatch = useDispatch();
   const storage = useSelector((state) => state.main);
 
@@ -39,11 +39,10 @@ export default function GoPaladins(props) {
             <Avatar mode="app" src={storage.modalData.img} size={72} />
           </motion.div>
         }
-        header="Подключение Overwatch Daily Arcade"
+        header="Подключение уведомлений от сервиса Go-Paladins.ru"
       >
-        Сервис уведомляет пользователя каждый день в 7 утра по МСК, отправляя
-        обновленный список аркад. Для подключения сервиса нажмите на кнопку
-        ниже.
+        Сервис уведомляет пользователя при добавлении новых гайдов на персонажей
+        игры Paladins.
       </Placeholder>
       <FormLayout
         onSubmit={(e) => {
@@ -55,7 +54,7 @@ export default function GoPaladins(props) {
               if (data.response) {
                 dispatch(
                   setSnackbar({
-                    text: "Уведомления от «Overwatch Daily Arcade» включены!",
+                    text: "Уведомления от «Go-Paladins.ru» включены!",
                     success: true,
                   })
                 );

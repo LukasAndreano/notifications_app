@@ -10,7 +10,7 @@ import {
   Div,
   PullToRefresh,
   Card,
-    Footer,
+  Footer,
   SimpleCell,
   Header,
   Spinner,
@@ -90,13 +90,11 @@ export default function Profile() {
 
   return (
     <Fragment>
-      <PanelHeader separator={storage.isDesktop}>
-        Профиль
-      </PanelHeader>
+      <PanelHeader separator={storage.isDesktop}>Профиль</PanelHeader>
       <PullToRefresh onRefresh={() => fetchingFunc(true)} isFetching={fetching}>
         <Group style={{ paddingLeft: 5, paddingRight: 5 }}>
           {loaded ? (
-            <Div style={{marginTop: -10, marginBottom: -10}}>
+            <Div style={{ marginTop: -10, marginBottom: -10 }}>
               {sessionStorage.getItem("platform") !== "mobile_iphone" &&
                 sessionStorage.getItem("platform") !==
                   "mobile_iphone_messenger" &&
@@ -113,34 +111,36 @@ export default function Profile() {
                 )}
               <Card>
                 <RichCell
-                    disabled
-                    multiline
-                    before={<Avatar size={56} src={storage.user.photo_100} />}
-                    text={
-                      sessionStorage.getItem("platform") !== "mobile_iphone" &&
-                      sessionStorage.getItem("platform") !==
+                  disabled
+                  multiline
+                  before={<Avatar size={56} src={storage.user.photo_100} />}
+                  text={
+                    sessionStorage.getItem("platform") !== "mobile_iphone" &&
+                    sessionStorage.getItem("platform") !==
                       "mobile_iphone_messenger" &&
-                      (data.pro === 1
-                          ? "Подписка: активирована"
-                          : "Подписка: отсутствует")
-                    }
-                    caption={
-                      localStorage.getItem("request") === true
-                          ? "Подана заявка на контент-мейкера"
-                          : data.status === 1
-                              ? "Контент-мейкер"
-                              : data.status === 0
-                                  ? "Обычный пользователь"
-                                  : (data.status === 2 ||
-                                      localStorage.getItem("request") === false) &&
-                                  "Подана заявка на контент-мейкера"
-                    }
+                    (data.pro === 1
+                      ? "Подписка: активирована"
+                      : "Подписка: отсутствует")
+                  }
+                  caption={
+                    localStorage.getItem("request") === true
+                      ? "Подана заявка на контент-мейкера"
+                      : data.status === 1
+                      ? "Контент-мейкер"
+                      : data.status === 0
+                      ? "Обычный пользователь"
+                      : (data.status === 2 ||
+                          localStorage.getItem("request") === false) &&
+                        "Подана заявка на контент-мейкера"
+                  }
                 >
-                <span
-                    dangerouslySetInnerHTML={{ __html: storage.user.first_name }}
-                />{" "}
                   <span
-                      dangerouslySetInnerHTML={{ __html: storage.user.last_name }}
+                    dangerouslySetInnerHTML={{
+                      __html: storage.user.first_name,
+                    }}
+                  />{" "}
+                  <span
+                    dangerouslySetInnerHTML={{ __html: storage.user.last_name }}
                   />
                 </RichCell>
               </Card>
@@ -149,30 +149,32 @@ export default function Profile() {
                   <Header mode="secondary">Функции контент-мейкера</Header>
                   <Card>
                     <SimpleCell
-                        onClick={() => {
-                          if (localStorage.getItem("link") === null) {
-                            dispatch(setActiveModal("setLink"));
-                          } else {
-                            dispatch(setActiveModal("refLink"));
-                            dispatch(saveTag(localStorage.getItem("link")));
-                          }
-                        }}
-                        expandable
-                        before={<Icon28ChainOutline />}
+                      onClick={() => {
+                        if (localStorage.getItem("link") === null) {
+                          dispatch(setActiveModal("setLink"));
+                        } else {
+                          dispatch(setActiveModal("refLink"));
+                          dispatch(saveTag(localStorage.getItem("link")));
+                        }
+                      }}
+                      expandable
+                      before={<Icon28ChainOutline />}
                     >
                       Ссылка на подписку
                     </SimpleCell>
                     <SimpleCell
-                        onClick={() => dispatch(setActiveModal("startMailing"))}
-                        expandable
-                        before={<Icon28MailOutline />}
+                      onClick={() => dispatch(setActiveModal("startMailing"))}
+                      expandable
+                      before={<Icon28MailOutline />}
                     >
                       Рассылка для подписчиков
                     </SimpleCell>
                     <SimpleCell
-                        onClick={() => dispatch(setActiveModal("randomSubscriber"))}
-                        expandable
-                        before={<Icon28UserOutline />}
+                      onClick={() =>
+                        dispatch(setActiveModal("randomSubscriber"))
+                      }
+                      expandable
+                      before={<Icon28UserOutline />}
                     >
                       Случайный подписчик
                     </SimpleCell>
@@ -182,41 +184,41 @@ export default function Profile() {
               <Header mode="secondary">Различные функции</Header>
               <Card>
                 {Number(sessionStorage.getItem("favorites")) === 0 && (
-                    <SimpleCell
-                        onClick={() =>
-                            bridge.send("VKWebAppAddToFavorites").then((data) => {
-                              if (data.result === true) {
-                                sessionStorage.setItem("favorites", "1");
-                                dispatch(
-                                    setSnackbar({
-                                      text: "Сервис добавлен в «Избранное»!",
-                                      success: true,
-                                    })
-                                );
-                              }
+                  <SimpleCell
+                    onClick={() =>
+                      bridge.send("VKWebAppAddToFavorites").then((data) => {
+                        if (data.result === true) {
+                          sessionStorage.setItem("favorites", "1");
+                          dispatch(
+                            setSnackbar({
+                              text: "Сервис добавлен в «Избранное»!",
+                              success: true,
                             })
+                          );
                         }
-                        expandable
-                        before={<Icon28FavoriteOutline />}
-                    >
-                      Добавить в избранное
-                    </SimpleCell>
+                      })
+                    }
+                    expandable
+                    before={<Icon28FavoriteOutline />}
+                  >
+                    Добавить в избранное
+                  </SimpleCell>
                 )}
                 {data.status === 0 && localStorage.getItem("request") === null && (
-                    <SimpleCell
-                        expandable
-                        before={<Icon28UserStarBadgeOutline />}
-                        onClick={() =>
-                            dispatch(setActiveModal("contentMakerRequest"))
-                        }
-                    >
-                      Стать контент-мейкером
-                    </SimpleCell>
+                  <SimpleCell
+                    expandable
+                    before={<Icon28UserStarBadgeOutline />}
+                    onClick={() =>
+                      dispatch(setActiveModal("contentMakerRequest"))
+                    }
+                  >
+                    Стать контент-мейкером
+                  </SimpleCell>
                 )}
                 <SimpleCell
-                    onClick={() => dispatch(setActiveModal("tour1"))}
-                    expandable
-                    before={<Icon28LightbulbOutline />}
+                  onClick={() => dispatch(setActiveModal("tour1"))}
+                  expandable
+                  before={<Icon28LightbulbOutline />}
                 >
                   Пройти гайд
                 </SimpleCell>
@@ -224,57 +226,64 @@ export default function Profile() {
               <Header mode="secondary">Другое</Header>
               <Card>
                 <a
-                    href="https://vk.com/@notificationsapp-start-guide"
-                    target="_blank"
-                    rel="noreferrer"
+                  href="https://vk.com/@notificationsapp-start-guide"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <SimpleCell expandable before={<Icon28QuestionOutline />}>
                     Открыть FAQ
                   </SimpleCell>
                 </a>
                 <a
-                    href="https://vk.com/club206215182"
-                    target="_blank"
-                    rel="noreferrer"
+                  href="https://vk.com/club206215182"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <SimpleCell expandable before={<Icon28UserOutgoingOutline />}>
                     Перейти в сообщество
                   </SimpleCell>
                 </a>
                 <a
-                    href="https://vk.com/id172118960"
-                    target="_blank"
-                    rel="noreferrer"
+                  href="https://vk.com/id172118960"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <SimpleCell
-                      expandable
-                      before={<Icon28MessageAddBadgeOutline />}
+                    expandable
+                    before={<Icon28MessageAddBadgeOutline />}
                   >
                     Разработчик
                   </SimpleCell>
                 </a>
                 <SimpleCell
-                    onClick={() =>
-                        bridge.send("VKWebAppAddToCommunity").then((data) => {
-                          if (data.group_id !== undefined && data.group_id !== null) {
-                            dispatch(
-                                setSnackbar({
-                                  text: "Сервис добавлен в сообщество!",
-                                  success: true,
-                                })
-                            );
-                          }
-                        })
-                    }
-                    expandable
-                    before={<Icon28Users3Outline />}
+                  onClick={() =>
+                    bridge.send("VKWebAppAddToCommunity").then((data) => {
+                      if (
+                        data.group_id !== undefined &&
+                        data.group_id !== null
+                      ) {
+                        dispatch(
+                          setSnackbar({
+                            text: "Сервис добавлен в сообщество!",
+                            success: true,
+                          })
+                        );
+                      }
+                    })
+                  }
+                  expandable
+                  before={<Icon28Users3Outline />}
                 >
                   Установить сервис в группу
                 </SimpleCell>
                 <SimpleCell
-                    onClick={() => bridge.send("VKWebAppShare", {"link": "https://vk.com/app7915893"})}
-                    expandable
-                    before={<Icon28ShareOutline />}
+                  onClick={() =>
+                    bridge.send("VKWebAppShare", {
+                      link: "https://vk.com/app7915893",
+                    })
+                  }
+                  expandable
+                  before={<Icon28ShareOutline />}
                 >
                   Поделиться сервисом
                 </SimpleCell>

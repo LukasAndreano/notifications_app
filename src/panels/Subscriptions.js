@@ -138,7 +138,7 @@ export default function Subscriptions() {
                           <Button
                             size="m"
                             onClick={() => {
-                                dispatch(setActiveModal('notificationsSettings'))
+                              dispatch(setActiveModal("notificationsSettings"));
                             }}
                           >
                             Перейти в настройки
@@ -169,7 +169,7 @@ export default function Subscriptions() {
                       size="m"
                       style={{ marginTop: 10 }}
                       onClick={() => {
-                          dispatch(setActiveModal('notificationsSettings'))
+                        dispatch(setActiveModal("notificationsSettings"));
                       }}
                     >
                       Настройки уведомлений

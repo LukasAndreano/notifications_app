@@ -26,7 +26,7 @@ import { motion } from "framer-motion";
 
 import {
   Icon28UserCircleOutline,
-    Icon28Newsfeed,
+  Icon28Newsfeed,
   Icon28RssFeedOutline,
   Icon16Cancel,
   Icon16Done,
@@ -58,7 +58,6 @@ import Modals from "./modals/main";
 // VK STORAGE KEYS
 const STORAGE_KEYS = {
   STATUS: "status",
-  ONBOARDING: "onboarding",
 };
 
 const App = withAdaptivity(
@@ -87,7 +86,7 @@ const App = withAdaptivity(
     }, [dispatch]);
 
     useEffect(() => {
-      bridge.subscribe(({ detail: { type} }) => {
+      bridge.subscribe(({ detail: { type } }) => {
         setIgnore(true);
         switch (type) {
           case "VKWebAppAllowNotificationsResult":
@@ -299,7 +298,8 @@ const App = withAdaptivity(
       } else if (storage.activeModal !== null) {
         dispatch(setActiveModal(null));
       } else if (
-        window.location.hash.substr(1) !== "" && window.location.hash.substr(1) !== "popout" &&
+        window.location.hash.substr(1) !== "" &&
+        window.location.hash.substr(1) !== "popout" &&
         window.location.hash.substr(1) !== storage.tag
       ) {
         dispatch(setDontClone(true));
@@ -343,7 +343,7 @@ const App = withAdaptivity(
     return (
       <Fragment>
         <SplitLayout
-            className={storage.snackbar.text !== null && 'snackbarActive'}
+          className={storage.snackbar.text !== null && "snackbarActive"}
           header={hasHeader && <PanelHeader separator={false} />}
           style={{ justifyContent: "center" }}
         >
@@ -485,7 +485,7 @@ const App = withAdaptivity(
                   <Tabbar>
                     <TabbarItem
                       onClick={URLChanger}
-                      className={storage.tour === 4 && 'badgehightlighted'}
+                      className={storage.tour === 4 && "badgehightlighted"}
                       disabled={
                         !storage.navigation ||
                         storage.url === "" ||
@@ -496,18 +496,20 @@ const App = withAdaptivity(
                       }
                       data-story=""
                     >
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{
-                                delay: 0.3,
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 20,
-                            }}
-                        ><Icon28Newsfeed
-                        className={!storage.navigation && "disabledNav"}
-                        /></motion.div>
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.3,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28Newsfeed
+                          className={!storage.navigation && "disabledNav"}
+                        />
+                      </motion.div>
                     </TabbarItem>
 
                     <TabbarItem
@@ -517,18 +519,23 @@ const App = withAdaptivity(
                       }
                       selected={storage.url === "subscriptions"}
                       data-story="subscriptions"
-                      className={(storage.tour === 3 || storage.tour === 2) && 'badgehightlighted'}
+                      className={
+                        (storage.tour === 3 || storage.tour === 2) &&
+                        "badgehightlighted"
+                      }
                     >
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{
-                                delay: 0.4,
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 20,
-                            }}
-                        ><Icon28RssFeedOutline /></motion.div>
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.4,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28RssFeedOutline />
+                      </motion.div>
                     </TabbarItem>
 
                     <TabbarItem
@@ -538,20 +545,22 @@ const App = withAdaptivity(
                       }
                       selected={storage.url === "services"}
                       data-story="services"
-                      className={storage.tour === 1 && 'badgehightlighted'}
+                      className={storage.tour === 1 && "badgehightlighted"}
                     >
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{
-                                delay: 0.5,
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 20,
-                            }}
-                        ><Icon28ServicesOutline
-                        className={!storage.navigation && "disabledNav"}
-                        /></motion.div>
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.5,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28ServicesOutline
+                          className={!storage.navigation && "disabledNav"}
+                        />
+                      </motion.div>
                     </TabbarItem>
 
                     <TabbarItem
@@ -559,20 +568,22 @@ const App = withAdaptivity(
                       disabled={!storage.navigation || storage.url === "rating"}
                       selected={storage.url === "rating"}
                       data-story="rating"
-                      className={storage.tour === 5 && 'badgehightlighted'}
+                      className={storage.tour === 5 && "badgehightlighted"}
                     >
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{
-                                delay: 0.6,
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 20,
-                            }}
-                        ><Icon28FireOutline
-                        className={!storage.navigation && "disabledNav"}
-                        /></motion.div>
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.6,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28FireOutline
+                          className={!storage.navigation && "disabledNav"}
+                        />
+                      </motion.div>
                     </TabbarItem>
 
                     <TabbarItem
@@ -582,20 +593,22 @@ const App = withAdaptivity(
                       }
                       selected={storage.url === "profile"}
                       data-story="profile"
-                      className={storage.tour === 6 && 'badgehightlighted'}
+                      className={storage.tour === 6 && "badgehightlighted"}
                     >
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{
-                                delay: 0.7,
-                                type: "spring",
-                                stiffness: 260,
-                                damping: 20,
-                            }}
-                        ><Icon28UserCircleOutline
-                        className={!storage.navigation && "disabledNav"}
-                        /></motion.div>
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          delay: 0.7,
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
+                      >
+                        <Icon28UserCircleOutline
+                          className={!storage.navigation && "disabledNav"}
+                        />
+                      </motion.div>
                     </TabbarItem>
                   </Tabbar>
                 )
@@ -612,7 +625,7 @@ const App = withAdaptivity(
                 </Panel>
               </View>
             </Epic>
-              {snackbar}
+            {snackbar}
           </SplitCol>
         </SplitLayout>
       </Fragment>
