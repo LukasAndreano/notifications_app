@@ -8,13 +8,11 @@ import React, {
 import {
   Group,
   Avatar,
-  Div,
   PullToRefresh,
   RichCell,
   SubnavigationBar,
   SubnavigationButton,
   Spinner,
-  ContentCard,
   PanelHeader,
   Placeholder,
 } from "@vkontakte/vkui";
@@ -234,13 +232,6 @@ export default function Feed() {
         <Group>
           {loaded ? (
             <Fragment>
-              <Div style={{ marginTop: -10, marginBottom: -20 }}>
-                <ContentCard
-                  disabled
-                  header="Добро пожаловать на страницу рейтинга!"
-                  caption="Здесь отображаются самые популярные аккаунты, которые отслеживают наши пользователи."
-                />
-              </Div>
               <SubnavigationBar>
                 <SubnavigationButton
                   size="l"

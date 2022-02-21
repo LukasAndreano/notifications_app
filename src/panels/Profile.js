@@ -3,7 +3,6 @@ import bridge from "@vkontakte/vk-bridge";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Group,
-  ContentCard,
   RichCell,
   Avatar,
   PanelHeader,
@@ -14,6 +13,7 @@ import {
   SimpleCell,
   Header,
   Spinner,
+  Banner,
 } from "@vkontakte/vkui";
 import {
   Icon28FavoriteOutline,
@@ -99,15 +99,12 @@ export default function Profile() {
                 sessionStorage.getItem("platform") !==
                   "mobile_iphone_messenger" &&
                 data.pro === 0 && (
-                  <Div style={{ marginTop: -10 }}>
-                    <ContentCard
-                      onClick={() => {
-                        dispatch(setActiveModal("donut"));
-                      }}
-                      header="Надоели лимиты и хочется эксклюзивных функций?"
-                      caption="Подключите подписку VK Donut прямо сейчас и получите доступ ко всему функционалу! Чтобы узнать подробнее о подписке, нажмите здесь."
-                    />
-                  </Div>
+                  <Banner
+                    header="Надоели лимиты и хочется эксклюзивных функций?"
+                    subheader="Подключите подписку VK Donut прямо сейчас и получите доступ ко всему функционалу! Чтобы узнать подробнее о подписке, нажмите здесь."
+                    asideMode="expand"
+                    onClick={() => dispatch(setActiveModal("donut"))}
+                  />
                 )}
               <Card>
                 <RichCell
