@@ -1,6 +1,6 @@
 export default async function fetch2(method, params = null) {
   return await fetch(
-    "https://notifications-prod-api.nbalin.dev/v1/" +
+    "https://notifications-api.nbalin.dev/v1/" +
       method +
       sessionStorage.getItem("params"),
     {
