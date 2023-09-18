@@ -52,7 +52,13 @@ try {
     if (data.response) {
       ReactDOM.render(
         <Provider store={store}>
-          <ConfigProvider isWebView={true} scheme="inherit">
+          <ConfigProvider
+            isWebView={true}
+            scheme="inherit"
+            platform={
+              getParams.vk_platform === "desktop_web" ? "android" : undefined
+            }
+          >
             <AdaptivityProvider>
               <AppRoot>
                 <Router>

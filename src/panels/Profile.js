@@ -201,17 +201,18 @@ export default function Profile() {
                     Добавить в избранное
                   </SimpleCell>
                 )}
-                {data.status === 0 && localStorage.getItem("request") === null && (
-                  <SimpleCell
-                    expandable
-                    before={<Icon28UserStarBadgeOutline />}
-                    onClick={() =>
-                      dispatch(setActiveModal("contentMakerRequest"))
-                    }
-                  >
-                    Стать контент-мейкером
-                  </SimpleCell>
-                )}
+                {data.status === 0 &&
+                  localStorage.getItem("request") === null && (
+                    <SimpleCell
+                      expandable
+                      before={<Icon28UserStarBadgeOutline />}
+                      onClick={() =>
+                        dispatch(setActiveModal("contentMakerRequest"))
+                      }
+                    >
+                      Стать контент-мейкером
+                    </SimpleCell>
+                  )}
                 <SimpleCell
                   onClick={() => dispatch(setActiveModal("tour1"))}
                   expandable
